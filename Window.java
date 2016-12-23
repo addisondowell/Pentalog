@@ -3,39 +3,61 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Window extends JFrame{
-	public static JFrame frame;
-	public static JPanel screen;
+    public static JFrame frame;
+    public static JPanel screen;
+    
+    public Window(int w, int h, String title){
 
-	public Window(int w, int h, String title){
-		frame = new JFrame(title);
-		screen = new JPanel();
-		Dimension d = new Dimension(w, h);
+	/*
+	 * Creates a frame labelled by String title and panel
+	 * with dimensions w width and h height.
+	 */
 
-		frame.setSize(d);
-		frame.setMaximumSize(d);
-		frame.setMinimumSize(d);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
+	frame = new JFrame(title);
+	screen = new JPanel();
+	Dimension d = new Dimension(w, h);
 
-		screen.setSize(d);
-		screen.setBackground(Color.black);
-		frame.getContentPane().add(screen);
+	//Adjusting frame
+	
+	frame.setSize(d);
+	frame.setMaximumSize(d);
+	frame.setMinimumSize(d);
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		noGap();
-	}
+	//Adjusting screen
+	
+	screen.setSize(d);
+	screen.setBackground(Color.black);
+	frame.getContentPane().add(screen);
 
-	public void turnOn(){
-		frame.setVisible(true);
-		frame.setResizable(false);
-	}
+	//noGap is a User-defined method
+	
+	noGap();
+    }
+    
+    public void turnOn(){
+	/*
+	 * Toggles visibilitity and resizability of window.
+	 */
+	
+	frame.setVisible(true);
+	frame.setResizable(false);
+    }
+    
+    public void noGap(){
 
-	public void noGap(){
-		FlowLayout layout = (FlowLayout)screen.getLayout();
-		layout.setVgap(0);
-		layout.setHgap(0);
-	}
-
-	public static void main(String[] args){
-		Window window = new Window(800, 500, "WindowWindow");
-		window.turnOn();
-	}
+	/*
+	 * Sets a vertical and horizontal gap of 0 for JPanel screen.
+	 */
+	
+	FlowLayout layout = (FlowLayout)screen.getLayout();
+	layout.setVgap(0);
+	layout.setHgap(0);
+    }
+    
+    public static void main(String[] args){
+	Window window = new Window(800, 500, "WindowWindow");
+	window.turnOn();
+    }
 }
