@@ -28,12 +28,19 @@ public class Window extends JFrame{
 	//Adjusting screen
 	
 	screen.setSize(d);
-	screen.setBackground(Color.black);
+	screen.setBackground(Color.blue);
 	frame.getContentPane().add(screen);
 
 	//noGap is a User-defined method
 	
 	noGap();
+    }
+
+    private static void lineDraw(){
+
+	Graphics g = screen.getGraphics();
+	g.drawLine(0,0,500,500);
+
     }
     
     public void turnOn(){
@@ -57,7 +64,11 @@ public class Window extends JFrame{
     }
     
     public static void main(String[] args){
-	Window window = new Window(800, 500, "WindowWindow");
+	Window window = new Window(500, 500, "test");
 	window.turnOn();
+
+	lineDraw();
+	
+	System.out.println("Hello!");
     }
 }
