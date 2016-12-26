@@ -5,26 +5,40 @@ import javax.swing.*;
 import java.awt.image.*;
 import java.io.*;
 
+
+//Addison Dowell
+//Keith Lovett
 public class PentalogGame{ 
 	//Window and boolean that tells us the game is running;
-	public static Window window = new Window(900,700,"Pentalog");
-	public static boolean go;
+	private static Window window = new Window(900,700,"Pentalog");
+	private static boolean go;
 
 	//info for the initial character drawing
-	private static int localeX;
-	private static int localeY;
-	private static int sizeX;
-	private static int sizeY;
+	private static int sizeX=90;
+	private static int sizeY=200;
+	private static int localeX=450-(sizeX/2);
+	private static int localeY=350-(sizeY/2);
 	private static ImageIcon character = new ImageIcon("icyman.png");
 	private static JLabel cHolder = new JLabel(character);
 
 	//variables for the idle state of the main character (no player input)
-	public static boolean idleCheck = true;
-	public static int idle = 0;
+	private static boolean idleCheck = false;
+	private static int idle = 0;
+
+	//variables for the jump state of the main character
+	private static boolean jumpCheck = true;
+	private static int initialVelocity = 10;
+	private static int jumpTime = 0;
+	private static int height = localeY;
+	private static int base = localeY;
+
 
 	public static void gameUpdate() {
 		if(idleCheck == true){
 			idleAnimation();
+		}
+		if(jumpCheck == true){
+			jumpAnimation();
 		}
 	}
 
@@ -47,8 +61,27 @@ public class PentalogGame{
 		}
 	}
 
-	public static void animation(){
-		System.out.println("This will animate soon");
+	public static void jumpAnimation(){
+		if(jumpTime > 5 && jumpTime < 16){
+			initialVelocity = initialVelocity - 2;
+		}
+		height = height - initialVelocity;
+		jumpTime += 1;
+		window.screen.remove(cHolder);
+		character = new ImageIcon("icyman.png");
+		cHolder = new JLabel(character);
+		cHolder.setBounds(localeX, height, sizeX, sizeY);
+		window.screen.add(cHolder);
+		window.screen.repaint();
+		if(height >= base){
+			jumpCheck = false;
+			idleCheck = true;
+		}
+	}
+
+	//Animates the background
+	public void backgroundAnimation(){
+		System.out.println("Background yayayaya");
 	}
 
 	//Yuri is the "tick" function for the game, all animations, actions, etc, are synced here.
@@ -56,9 +89,8 @@ public class PentalogGame{
 		go = true;
 		long origin = System.nanoTime();
 		while(go == true){
-			double currently = (System.nanoTime() - origin) / 10e7;
+			double currently = (System.nanoTime() - origin) / (10e7 + (10e7/2));
 			if(currently >= 1.0){
-				System.out.println("A second has passed");
 				gameUpdate();
 				origin = System.nanoTime();
 			}
@@ -69,20 +101,12 @@ public class PentalogGame{
 	public static void main(String[] args){
 		//Turn on the window and the beginning of the game
 		window.turnOn();
-
 		//Draws the main guy
-		localeX=0;
-		localeY=0;
-		sizeX=90;
-		sizeY=200;
 		cHolder.setBounds(localeX, localeY, sizeX, sizeY);
 		window.screen.add(cHolder);
 		window.screen.repaint();
 
 		yuri();
 	}
-
-
-
 
 }

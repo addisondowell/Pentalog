@@ -3,8 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Window{
-	public static JFrame frame;
-	public static JPanel screen;
+	public JFrame frame;
+	public JPanel screen;
 
 	public Window(int w, int h, String title){
 		frame = new JFrame(title);
@@ -20,9 +20,9 @@ public class Window{
 		screen.setBackground(Color.black);
 		screen.setLayout(null);
 		frame.getContentPane().add(screen);
-
 		//noGap();
 	}
+
 
 	public void turnOn(){
 		frame.setVisible(true);
